@@ -14,5 +14,5 @@ datasource db {
 model Link {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   url String
-  linkId String
+  linkId String @unique
 }
