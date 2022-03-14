@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import FormError from "./FormError";
 
 interface IFormInput {
   url: string;
@@ -42,24 +43,28 @@ const AddLinkForm: React.FC<IAddLinkFormProps> = ({ setLink }) => {
 
   return (
     <form onSubmit={handleSubmit(onFormSubmit)}>
-      <input
-        aria-invalid={true}
-        {...register("url", { required: true })}
-        type="text"
-        placeholder="Enter your url here..."
-        className="bg-gray-100 w-full px-2 h-12 placeholder-gray-600 mt-4 focus:outline-none focus:ring-2 focus:ring-indigo-700 rounded-lg"
+      <div className="flex">
+        <input
+          aria-invalid={true}
+          {...register("url", { required: true })}
+          type="text"
+          placeholder="Enter your url here..."
+          className="bg-white border border-solid border-gray-200 w-full px-2 h-12 placeholder-gray-600 mt-4 focus:outline-none focus:ring-2 focus:ring-[#0078cc] rounded-lg"
+        />
+
+        <button className="mt-4 ml-[-100px] px-4 text-xl py-2 bg-[#0078cc] hover:bg-[#0096ff] text-white rounded-lg">
+          Shorten
+        </button>
+      </div>
+
+      <FormError
+        error={
+          getFieldState("url").invalid && !isSubmitSuccessful
+            ? "Please enter a URL"
+            : ""
+        }
       />
-
-      <p>
-        {getFieldState("url").invalid &&
-          !isSubmitSuccessful &&
-          "Please enter a URL"}
-      </p>
-      {urlServerError && <p>{urlServerError}</p>}
-
-      <button className="mt-4 px-4 text-xl py-2 bg-indigo-700 hover:bg-indigo-600 text-white rounded-lg">
-        Shorten
-      </button>
+      <FormError error={urlServerError!} />
     </form>
   );
 };
