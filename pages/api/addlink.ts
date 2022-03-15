@@ -18,6 +18,7 @@ const AddLink = async (req: NextApiRequest, res: NextApiResponse<IAddLinkRespons
       data: {
         url: url,
         linkId: linkId,
+        visitCount: 0
       },
     });
     console.log(dbLink);

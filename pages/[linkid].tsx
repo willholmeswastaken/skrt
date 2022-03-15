@@ -11,6 +11,13 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
           linkId: linkId.toString(),
         },
       });
+      await prisma.link.update({
+          where: { linkId: linkId.toString() },
+          data: { 
+              visitCount: { increment: 1 },
+              visits: { create: { }}
+            }
+      });
       redirectUrl = url?.url ?? redirectUrl;
     }
   } catch (err) {
