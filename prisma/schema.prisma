@@ -3,16 +3,17 @@
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["mongoDb"]
+  previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
 }
 
 model Link {
-  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  id         Int  @id @default(autoincrement()) @map("_id")
   url        String
   linkId     String  @unique
   visitCount Int
@@ -20,8 +21,9 @@ model Link {
 }
 
 model Visit {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        Int   @id @default(autoincrement()) @map("_id")
   visitedAt DateTime @default(now())
   Link      Link?    @relation(fields: [linkId], references: [id])
-  linkId    String?  @db.ObjectId
+  linkId    Int?
+  @@index([linkId])
 }
