@@ -12,14 +12,14 @@ const UrlGeneratedModal: React.FC<IUrlGeneratedModalProps> = ({ link }) => {
   const [copied, setCopied] = useState(false);
 
   const copyLink = () => {
-      navigator.clipboard.writeText(link)
-      setCopied(true)
-  }
+    navigator.clipboard.writeText(link);
+    setCopied(true);
+  };
 
   useEffect(() => {
-      setOpen(true);
-      setCopied(false);
-  }, [link])
+    setOpen(true);
+    setCopied(false);
+  }, [link]);
 
   const cancelButtonRef = useRef(null);
 
@@ -77,19 +77,23 @@ const UrlGeneratedModal: React.FC<IUrlGeneratedModalProps> = ({ link }) => {
                       Url, Shortened.
                     </Dialog.Title>
                     <div className="mt-2 flex flex-col items-center">
-                      <div
-                        className="hover:cursor-pointer flex flex-row"
-                        onClick={() => copyLink()}
-                      >
-                        <a href={link} className="text-[#0078cc] pr-2">{link}</a>
-                        {copied ? (
-                          <CheckIcon height={25} className="mt-[-3px]" />
-                        ) : (
-                          <ClipboardIcon
-                            height={25}
-                            className="mt-[-3px]"
-                          />
-                        )}
+                      <div className="hover:cursor-pointer flex flex-row">
+                        <a
+                          href={link}
+                          className="text-[#0078cc] pr-2 focus:outline-none"
+                        >
+                          {link}
+                        </a>
+                        <div
+                          onClick={() => copyLink()}
+                          className="mt-[-3px] hover:cursor-pointer"
+                        >
+                          {copied ? (
+                            <CheckIcon height={25} />
+                          ) : (
+                            <ClipboardIcon height={25} />
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
