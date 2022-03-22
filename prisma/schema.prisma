@@ -18,6 +18,9 @@ model Link {
   linkId     String  @unique
   visitCount Int
   visits     Visit[]
+  unlisted   Boolean @default(false)
+  createdOn  DateTime @default(now())
+  createdById String?
 }
 
 model Visit {
