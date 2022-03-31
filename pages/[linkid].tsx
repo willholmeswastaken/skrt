@@ -1,7 +1,11 @@
 import type { GetServerSideProps, NextPage } from "next";
+import geoIp from "geoip-lite";
 import { prisma } from "../db";
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  params,
+  req,
+}) => {
   const linkId = params?.linkid;
   let redirectUrl = process.env.HOME_URL;
   try {
@@ -11,12 +15,22 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
           linkId: linkId.toString(),
         },
       });
+      const ipAddress =
+        req.socket.remoteAddress!.replace("::1", "").replace("127.0.0.1", "") ||
+        "77.99.6.131";
+      const country = geoIp.lookup(ipAddress)?.country;
       await prisma.link.update({
-          where: { linkId: linkId.toString() },
-          data: { 
-              visitCount: { increment: 1 },
-              visits: { create: { }}
-            }
+        where: { linkId: linkId.toString() },
+        data: {
+          visitCount: { increment: 1 },
+          visits: {
+            create: {
+              userAgent: req.headers["user-agent"],
+              ipAddress: ipAddress,
+              country: country,
+            },
+          },
+        },
       });
       redirectUrl = url?.url ?? redirectUrl;
     }

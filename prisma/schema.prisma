@@ -28,5 +28,8 @@ model Visit {
   visitedAt DateTime @default(now())
   Link      Link?    @relation(fields: [linkId], references: [id])
   linkId    Int?
+  userAgent String?
+  ipAddress String?
+  country   String?
   @@index([linkId])
 }

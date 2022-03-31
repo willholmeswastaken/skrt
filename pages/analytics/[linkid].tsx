@@ -1,5 +1,5 @@
-import { Link, Visit } from "@prisma/client";
 import type { GetServerSideProps, NextPage } from "next";
+import Head from "next/head";
 import {
   CartesianGrid,
   Line,
@@ -37,39 +37,44 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         },
       });
       if (link) {
+        let today = new Date();
+        let startDate = new Date(
+          today.getFullYear(),
+          today.getMonth(),
+          today.getDate() - 7
+        );
+        let totalVisits: Array<IDay> = [];
         const visits = await prisma.visit.findMany({
           where: {
             linkId: link.id,
+            visitedAt: {
+              gte: startDate,
+            },
           },
         });
-        let today = new Date();
-        let year = today.getFullYear();
-        let month = today.getMonth();
-        let date = today.getDate();
-        let lastThirtyDays: Array<IDay> = [];
-        console.log(visits)
         for (let i = 0; i < 7; i++) {
-          const day = new Date(year, month, date - 6 + i);
+          const day = new Date(
+            startDate.getFullYear(),
+            startDate.getMonth(),
+            startDate.getDate() + i
+          );
           const dayString = day.toISOString().split("T")[0].split("-");
-          lastThirtyDays.push({
+          totalVisits.push({
             date: `${dayString[1]}-${dayString[2]}`,
             visits: visits.filter(
               (x) => x.visitedAt.toDateString() === day.toDateString()
             ).length,
           });
         }
-        console.log(visits);
         const linkViewModel: ILink = {
           id: link.linkId,
           url: link.url,
           visitCount: link.visitCount,
-          visits: lastThirtyDays,
+          visits: totalVisits,
           unlisted: link.unlisted,
           createdOn: link.createdOn.toJSON(),
           createdById: link.createdById,
         };
-
-        console.log(linkViewModel);
         return {
           props: { link: linkViewModel },
         };
@@ -100,19 +105,23 @@ interface IAnalyticsPageProps {
 const Analytics: NextPage<IAnalyticsPageProps> = ({ link }) => {
   return (
     <div>
+      <Head>
+        <title>Link Analytics - {link.id}</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <div>
         <h1 className="font-bold text-4xl text-center text-gray-50 py-10">
           {link.url}
         </h1>
       </div>
       <div>
-      <h1 className="font-bold text-3xl text-center sm:text-left text-gray-50 py-10">
+        <h1 className="font-bold text-3xl text-center sm:text-left text-gray-50 py-10">
           Clicks in the last 7 days
         </h1>
       </div>
       <div className="flex flex-1 h-full bg-white rounded-lg shadow-lg">
         <div className="p-6 h-full w-full">
-          <ResponsiveContainer height={400} className="">
+          <ResponsiveContainer height={400} className="ml-[-25px]">
             <LineChart
               data={link.visits}
               margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
