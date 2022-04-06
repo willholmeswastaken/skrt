@@ -13,16 +13,20 @@
     "@heroicons/react": "^1.0.6",
     "@prisma/client": "^3.10.0",
     "@types/geoip-lite": "^1.4.1",
+    "@types/ua-parser-js": "^0.7.36",
     "autoprefixer": "^10.4.2",
+    "chart.js": "^3.7.1",
     "geoip-lite": "^1.4.4",
     "next": "12.1.0",
     "postcss": "^8.4.8",
     "prisma": "^3.10.0",
     "react": "17.0.2",
+    "react-chartjs-2": "^4.0.1",
     "react-dom": "17.0.2",
     "react-hook-form": "^7.27.1",
-    "recharts": "^2.1.9",
-    "tailwindcss": "^3.0.23"
+    "tailwindcss": "^3.0.23",
+    "ua-parser-js": "^1.0.2",
+    "usehooks-ts": "^2.4.2"
   },
   "devDependencies": {
     "@types/node": "17.0.21",

@@ -1,30 +1,11 @@
 import type { GetServerSideProps, NextPage } from "next";
+import { Visit } from "@prisma/client";
 import Head from "next/head";
-import {
-  CartesianGrid,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
+import parser from "ua-parser-js";
 import { prisma } from "../../db";
-
-interface ILink {
-  id: string;
-  url: string;
-  unlisted: boolean;
-  visitCount: number;
-  visits: IDay[];
-  createdOn: string;
-  createdById: string | null;
-}
-
-interface IDay {
-  date: string;
-  visits: number;
-}
+import { IDay, IDeviceAnalytic, IVisit, ILink } from "../../models";
+import ClicksGraph from "../../components/ClicksGraph";
+import DeviceAnalyticsChart from "../../components/DeviceAnalyticsChart";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const linkId = params?.linkid;
@@ -43,7 +24,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
           today.getMonth(),
           today.getDate() - 7
         );
-        let totalVisits: Array<IDay> = [];
+        let days: Array<IDay> = [];
         const visits = await prisma.visit.findMany({
           where: {
             linkId: link.id,
@@ -53,27 +34,64 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
           },
         });
         for (let i = 0; i < 7; i++) {
-          const day = new Date(
+          const iteratedDay: Date = new Date(
             startDate.getFullYear(),
             startDate.getMonth(),
             startDate.getDate() + i
           );
-          const dayString = day.toISOString().split("T")[0].split("-");
-          totalVisits.push({
+          const dayString: string[] = iteratedDay
+            .toISOString()
+            .split("T")[0]
+            .split("-");
+          const day: IDay = {
             date: `${dayString[1]}-${dayString[2]}`,
-            visits: visits.filter(
-              (x) => x.visitedAt.toDateString() === day.toDateString()
-            ).length,
-          });
+            visits: [],
+            visitCount: 0,
+          };
+          var visitsOnDay: Visit[] = visits.filter(
+            (x) => x.visitedAt.toDateString() === iteratedDay.toDateString()
+          );
+          for (let i = 0; i < visitsOnDay.length; i++) {
+            const iteratedVisit: Visit = visitsOnDay[i];
+            const userAgent = parser(iteratedVisit.userAgent!);
+            day.visits.push({
+              device: userAgent.os.name! ?? "Unknown",
+            });
+            day.visitCount++;
+          }
+          days.push(day);
         }
+        var groupBy = function (data: any[], key: string) {
+          let res: any = data.reduce(function (previousValue, currentValue) {
+            (previousValue[currentValue[key]] =
+              previousValue[currentValue[key]] || []).push(1);
+            return previousValue;
+          }, {});
+          let arr: Array<IDeviceAnalytic> = [];
+          for (let i = 0; i < Object.keys(res).length; i++) {
+            arr.push({
+              name: Object.keys(res)[i],
+              count: Object.values(res)[i].length,
+            });
+          }
+          return arr;
+        };
+
+        let totalVisits: Array<IVisit> = [];
+        for (let i = 0; i < days.length; i++) {
+          const day = days[i];
+          totalVisits = totalVisits.concat(day.visits);
+        }
+
         const linkViewModel: ILink = {
           id: link.linkId,
           url: link.url,
           visitCount: link.visitCount,
-          visits: totalVisits,
+          days: days,
           unlisted: link.unlisted,
           createdOn: link.createdOn.toJSON(),
           createdById: link.createdById,
+          deviceAnalytics: groupBy(totalVisits, "device"),
         };
         return {
           props: { link: linkViewModel },
@@ -110,29 +128,31 @@ const Analytics: NextPage<IAnalyticsPageProps> = ({ link }) => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <div>
-        <h1 className="font-bold text-4xl text-center text-gray-50 py-10">
-          {link.url}
-        </h1>
-      </div>
-      <div>
-        <h1 className="font-bold text-3xl text-center sm:text-left text-gray-50 py-10">
-          Clicks in the last 7 days
-        </h1>
-      </div>
-      <div className="flex flex-1 h-full bg-white rounded-lg shadow-lg">
-        <div className="p-6 h-full w-full">
-          <ResponsiveContainer height={400} className="ml-[-25px]">
-            <LineChart
-              data={link.visits}
-              margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
-            >
-              <Line type="monotone" dataKey="visits" stroke="#8884d8" />
-              <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-              <XAxis dataKey="date" fontSize={14} />
-              <YAxis fontSize={14} />
-              <Tooltip />
-            </LineChart>
-          </ResponsiveContainer>
+        <div className="flex md:flex-row flex-col gap-4">
+          <div className="w-full md:w-1/4">
+            <div className="bg-white dark:bg-soft-dark-light rounded-lg shadow-md">
+              <h2 className="text-black dark:text-soft-white-header text-xl font-semibold p-4">
+                Target Url
+              </h2>
+              <p className="text-black dark:text-soft-white-caption-text whitespace-normal px-4 pb-4">
+                {link.url}
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-col w-full md:w-2/4 gap-y-4">
+            <div className="flex flex-col flex-1 h-full bg-white dark:bg-soft-dark-light rounded-lg shadow-md">
+              <div className="p-6">
+                <ClicksGraph days={link.days} />
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col w-full md:w-2/4 gap-y-4">
+            <div className="flex flex-col flex-1 h-full bg-white dark:bg-soft-dark-light rounded-lg shadow-md">
+              <div className="p-6">
+                <DeviceAnalyticsChart deviceAnalytics={link.deviceAnalytics} />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

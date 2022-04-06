@@ -14,14 +14,13 @@ const AddLink = async (req: NextApiRequest, res: NextApiResponse<IAddLinkRespons
     return res.status(422).json({ validUrl: false, link: '' });
   try {
     const linkId = Math.random().toString(36).substring(2, 8);
-    const dbLink = await prisma.link.create({
+    await prisma.link.create({
       data: {
         url: url,
         linkId: linkId,
         visitCount: 0
       },
     });
-    console.log(dbLink);
     return res.status(200).json({ validUrl: true, link: linkId });
   } catch (ex) {
     console.log(ex);
