@@ -8,11 +8,11 @@ export const groupByDevice = (data: any[], key: string) => {
   }, {});
   let arr: Array<IDeviceAnalytic> = [];
   for (let i = 0; i < Object.keys(res).length; i++) {
+    const items: [] = Object.values(res)[i] as [];
     arr.push({
       name: Object.keys(res)[i],
-      count: Object.values(res)[i].length,
+      count: items.length,
     });
   }
   return arr;
 };
-
