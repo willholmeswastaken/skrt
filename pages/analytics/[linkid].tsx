@@ -1,9 +1,9 @@
 import type { GetServerSideProps, NextPage } from "next";
 import { Visit } from "@prisma/client";
 import Head from "next/head";
-import parser from "ua-parser-js";
 import { prisma } from "../../db";
-import { IDay, IDeviceAnalytic, IVisit, ILink } from "../../models";
+import { IDay, IVisit, ILink } from "../../models";
+import { groupByDevice, daysBuilder } from '../../utilities';
 import ClicksGraph from "../../components/ClicksGraph";
 import DeviceAnalyticsChart from "../../components/DeviceAnalyticsChart";
 
@@ -18,14 +18,14 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         },
       });
       if (link) {
-        let today = new Date();
-        let startDate = new Date(
+        let today: Date = new Date();
+        const daysDifference: number = 7;
+        let startDate: Date = new Date(
           today.getFullYear(),
           today.getMonth(),
-          today.getDate() - 7
+          today.getDate() - daysDifference
         );
-        let days: Array<IDay> = [];
-        const visits = await prisma.visit.findMany({
+        const visits: Array<Visit> = await prisma.visit.findMany({
           where: {
             linkId: link.id,
             visitedAt: {
@@ -33,53 +33,11 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
             },
           },
         });
-        for (let i = 0; i < 7; i++) {
-          const iteratedDay: Date = new Date(
-            startDate.getFullYear(),
-            startDate.getMonth(),
-            startDate.getDate() + i
-          );
-          const dayString: string[] = iteratedDay
-            .toISOString()
-            .split("T")[0]
-            .split("-");
-          const day: IDay = {
-            date: `${dayString[1]}-${dayString[2]}`,
-            visits: [],
-            visitCount: 0,
-          };
-          var visitsOnDay: Visit[] = visits.filter(
-            (x) => x.visitedAt.toDateString() === iteratedDay.toDateString()
-          );
-          for (let i = 0; i < visitsOnDay.length; i++) {
-            const iteratedVisit: Visit = visitsOnDay[i];
-            const userAgent = parser(iteratedVisit.userAgent!);
-            day.visits.push({
-              device: userAgent.os.name! ?? "Unknown",
-            });
-            day.visitCount++;
-          }
-          days.push(day);
-        }
-        var groupBy = function (data: any[], key: string) {
-          let res: any = data.reduce(function (previousValue, currentValue) {
-            (previousValue[currentValue[key]] =
-              previousValue[currentValue[key]] || []).push(1);
-            return previousValue;
-          }, {});
-          let arr: Array<IDeviceAnalytic> = [];
-          for (let i = 0; i < Object.keys(res).length; i++) {
-            arr.push({
-              name: Object.keys(res)[i],
-              count: Object.values(res)[i].length,
-            });
-          }
-          return arr;
-        };
+        let days: Array<IDay> = daysBuilder(startDate, daysDifference, visits);
 
         let totalVisits: Array<IVisit> = [];
         for (let i = 0; i < days.length; i++) {
-          const day = days[i];
+          const day: IDay = days[i];
           totalVisits = totalVisits.concat(day.visits);
         }
 
@@ -91,7 +49,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
           unlisted: link.unlisted,
           createdOn: link.createdOn.toJSON(),
           createdById: link.createdById,
-          deviceAnalytics: groupBy(totalVisits, "device"),
+          deviceAnalytics: groupByDevice(totalVisits, "device"),
         };
         return {
           props: { link: linkViewModel },
