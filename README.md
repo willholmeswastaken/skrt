@@ -10,7 +10,8 @@ Todo:
 - ✅ Add a createdon timestamp in the Link model
 - ✅ Add an unlisted boolean to a link
 - ✅ Store links with an optional userId
-- ⬜️ View click analytics for the last 7 days, including device breakdown and geographic as well as source of click.
+- ✅ View click analytics for the last 7 days, including device breakdown and geographic as well as source of click.
+- ⬜️ Search for a skrt
 - ⬜️ Create social share buttons
 - ⬜️ Log in with a social provider (nextauth)
 - ⬜️ View metrics on links when created whilst logged in
