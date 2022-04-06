@@ -38,6 +38,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         let totalVisits: Array<IVisit> = [];
         for (let i = 0; i < days.length; i++) {
           const day: IDay = days[i];
+          console.log(day)
+          if(day.visits === undefined) continue;
           totalVisits = totalVisits.concat(day.visits);
         }
 
@@ -88,24 +90,24 @@ const Analytics: NextPage<IAnalyticsPageProps> = ({ link }) => {
       <div>
         <div className="flex md:flex-row flex-col gap-4">
           <div className="w-full md:w-1/4">
-            <div className="bg-white dark:bg-soft-dark-light rounded-lg shadow-md">
-              <h2 className="text-black dark:text-soft-white-header text-xl font-semibold p-4">
+            <div className="bg-white dark:bg-soft-dark-light rounded-lg shadow-sm">
+              <h2 className="text-soft-dark-caption-text dark:text-soft-white-header text-xl font-semibold p-4">
                 Target Url
               </h2>
-              <p className="text-black dark:text-soft-white-caption-text whitespace-normal px-4 pb-4">
+              <p className="text-soft-dark-caption-text dark:text-soft-white-caption-text whitespace-normal px-4 pb-4">
                 {link.url}
               </p>
             </div>
           </div>
           <div className="flex flex-col w-full md:w-2/4 gap-y-4">
-            <div className="flex flex-col flex-1 h-full bg-white dark:bg-soft-dark-light rounded-lg shadow-md">
+            <div className="flex flex-col flex-1 h-full bg-white dark:bg-soft-dark-light rounded-lg shadow-sm">
               <div className="p-6">
                 <ClicksGraph days={link.days} />
               </div>
             </div>
           </div>
           <div className="flex flex-col w-full md:w-2/4 gap-y-4">
-            <div className="flex flex-col flex-1 h-full bg-white dark:bg-soft-dark-light rounded-lg shadow-md">
+            <div className="flex flex-col flex-1 h-full bg-white dark:bg-soft-dark-light rounded-lg shadow-sm">
               <div className="p-6">
                 <DeviceAnalyticsChart deviceAnalytics={link.deviceAnalytics} />
               </div>

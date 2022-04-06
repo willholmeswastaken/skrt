@@ -81,7 +81,15 @@ const ClicksGraph: React.FC<IClicksGraphProps> = ({ days }) => {
       },
     ],
   };
-  return <Line options={options} data={data} height={250} />;
+  return (
+      <>
+      {
+          days.length > 0
+          ? (<Line options={options} data={data} height={250} />)
+          : (<p className="text-soft-dark-caption-text dark:text-soft-white-caption-text">No clicks have been recorded!</p>)
+      }
+  </>
+  );
 };
 
 export default ClicksGraph;

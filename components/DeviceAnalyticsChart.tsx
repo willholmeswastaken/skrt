@@ -45,7 +45,15 @@ const DeviceAnalyticsChart: React.FC<IDeviceAnalyticsChartProps> = ({ deviceAnal
       },
     ],
   };
-  return <Doughnut options={options} data={data} height={250} />;
+  return (
+      <>
+      {
+          deviceAnalytics.length > 0
+          ? (<Doughnut options={options} data={data} height={250} />)
+          : (<p className="text-soft-dark-caption-text dark:text-soft-white-caption-text">No device analytics available!</p>)
+      } 
+  </>
+  );
 };
 
 export default DeviceAnalyticsChart;

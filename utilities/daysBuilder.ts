@@ -4,7 +4,9 @@ import { IDay } from "../models";
 
 export const daysBuilder = ( startDate: Date, numberOfDaysToIncrement: number, visits: Array<Visit> ): Array<IDay> => {
     const days: Array<IDay> = [];
-    for (let i = 0; i < numberOfDaysToIncrement; i++) {
+    console.log(visits);
+    if(visits.length === 0) return days;
+    for (let i = 0; i <= numberOfDaysToIncrement; i++) {
         const iteratedDay: Date = new Date(
           startDate.getFullYear(),
           startDate.getMonth(),
