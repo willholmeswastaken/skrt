@@ -56,7 +56,7 @@ const AddLinkForm: React.FC<IAddLinkFormProps> = ({ setLink }) => {
           className="bg-white border border-solid border-gray-200 w-full px-2 h-12 placeholder-gray-600 mt-4 focus:outline-none rounded-lg disabled:bg-gray-300 disabled:border-gray-300"
         />
         <button
-          className="mt-4 w-40 text-center inline-flex leading-6 text-sm ml-[-100px] px-4 font-semibold items-center py-2 bg-[#479ed3] shadow-lg hover:bg-[#479ed3] text-white rounded-lg disabled:bg-[#10466d]"
+          className="mt-4 w-40 text-center inline-flex leading-6 text-sm ml-[-100px] px-4 font-semibold items-center py-2 bg-skrt-blue shadow-lg hover:bg-skrt-blue-light text-white rounded disabled:bg-[#10466d]"
           disabled={isLoading}
         >
           <svg

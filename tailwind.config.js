@@ -14,7 +14,8 @@ module.exports = {
         'soft-dark': '#292936',
         'soft-dark-caption-text': '#302f30',
         'soft-dark-light': '#363642',
-        'skrt-blue': '#2651f7'
+        'skrt-blue': '#2651f7',
+        'skrt-blue-light': '#345bf2'
       },
     },
   },
