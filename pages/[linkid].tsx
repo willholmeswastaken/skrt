@@ -1,5 +1,5 @@
 import type { GetServerSideProps, NextPage } from "next";
-import { lookup } from "geoip-lite";
+import { lookup } from "geoip-country";
 import { prisma } from "../db";
 
 export const getServerSideProps: GetServerSideProps = async ({
