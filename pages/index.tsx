@@ -34,7 +34,7 @@ const Home: NextPage<IHomePageProps> = (props) => {
     <div className="p-4 h-full w-full flex justify-center items-center">
       <div className="max-w-4xl rounded-lg w-full px-4 sm:px-6 lg:px-8 py-10">
         <h1 className="font-bold text-6xl md:text-7xl text-center text-soft-dark-caption-text dark:text-soft-white-header pb-5">
-          Urls, Shortened.
+          urls, shortened.
         </h1>
         <AddLinkForm setLink={setLink} />
         {link && <UrlGeneratedModal link={urlLink!} />}

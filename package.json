@@ -25,8 +25,7 @@
     "react-dom": "17.0.2",
     "react-hook-form": "^7.27.1",
     "tailwindcss": "^3.0.23",
-    "ua-parser-js": "^1.0.2",
-    "usehooks-ts": "^2.4.2"
+    "ua-parser-js": "^1.0.2"
   },
   "devDependencies": {
     "@types/node": "17.0.21",

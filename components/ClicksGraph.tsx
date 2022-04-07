@@ -1,5 +1,4 @@
 import React from "react";
-import { useDarkMode } from "usehooks-ts";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,6 +11,7 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { IDay } from "../models";
+import { useDarkMode } from "../utilities/hooks/useDarkMode";
 
 ChartJS.register(
   CategoryScale,
@@ -28,7 +28,7 @@ interface IClicksGraphProps {
 }
 
 const ClicksGraph: React.FC<IClicksGraphProps> = ({ days }) => {
-  const { isDarkMode } = useDarkMode();
+  const isDarkMode = useDarkMode();
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -40,6 +40,7 @@ const ClicksGraph: React.FC<IClicksGraphProps> = ({ days }) => {
         },
         ticks: {
           beginAtZero: true,
+          callback: function(value: any) {if (value % 1 === 0) {return value;}},
           color: isDarkMode ? "#e2e2e8" : "#302f30",
           fontSize: 12,
         },
@@ -82,13 +83,15 @@ const ClicksGraph: React.FC<IClicksGraphProps> = ({ days }) => {
     ],
   };
   return (
-      <>
-      {
-          days.length > 0
-          ? (<Line options={options} data={data} height={250} />)
-          : (<p className="text-soft-dark-caption-text dark:text-soft-white-caption-text">No clicks have been recorded!</p>)
-      }
-  </>
+    <>
+      {days.length > 0 ? (
+        <Line options={options} data={data} height={250} />
+      ) : (
+        <p className="text-soft-dark-caption-text dark:text-soft-white-caption-text">
+          No clicks have been recorded!
+        </p>
+      )}
+    </>
   );
 };
 

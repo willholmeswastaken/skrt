@@ -53,10 +53,10 @@ const AddLinkForm: React.FC<IAddLinkFormProps> = ({ setLink }) => {
           disabled={isLoading}
           type="text"
           placeholder="Enter your url here..."
-          className="bg-white border border-solid border-gray-200 w-full md:w-5/6 px-2 h-12 placeholder-gray-600 mt-4 focus:outline-none rounded disabled:bg-gray-300 disabled:border-gray-300"
+          className="bg-white dark:bg-soft-dark text-black dark:text-gray-400 border-2 border-solid border-skrt-blue w-full md:w-9/12 px-2 h-12 placeholder-gray-600 dark:placeholder-gray-400 mt-4 focus:outline-none rounded-xl disabled:bg-gray-300 disabled:border-gray-300"
         />
         <button
-          className="text-center inline-flex leading-6 text-sm w-full md:w-1/6 font-semibold items-center py-2 bg-skrt-blue shadow-lg hover:bg-skrt-blue-light text-white rounded disabled:bg-[#10466d]"
+          className="text-center inline-flex leading-6 text-sm w-full ml-2 md:w-3/12 font-semibold items-center py-2 mt-4 bg-skrt-blue hover:bg-skrt-blue-light text-white rounded-xl disabled:bg-[#10466d]"
           disabled={isLoading}
         >
           <div className="w-full flex items-center justify-center">
