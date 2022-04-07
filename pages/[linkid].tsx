@@ -1,5 +1,5 @@
 import type { GetServerSideProps, NextPage } from "next";
-import geoIp from "geoip-lite";
+import { lookup } from "geoip-lite";
 import { prisma } from "../db";
 
 export const getServerSideProps: GetServerSideProps = async ({
@@ -18,7 +18,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       const ipAddress =
         req.socket.remoteAddress!.replace("::1", "").replace("127.0.0.1", "") ||
         "77.99.6.131";
-      const country = geoIp.lookup(ipAddress)?.country;
+      const country = lookup(ipAddress)?.country;
       await prisma.link.update({
         where: { linkId: linkId.toString() },
         data: {
