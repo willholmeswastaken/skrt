@@ -1,5 +1,5 @@
 import React from "react";
-import { useDarkMode } from "usehooks-ts";
+import { useDarkMode } from "use-dark-mode-ts";
 import {
   Chart as ChartJS,
   Tooltip,
@@ -17,7 +17,7 @@ interface IDeviceAnalyticsChartProps {
 }
 
 const DeviceAnalyticsChart: React.FC<IDeviceAnalyticsChartProps> = ({ deviceAnalytics }) => {
-  const { isDarkMode } = useDarkMode();
+  const isDarkMode = useDarkMode();
   const options = {
     responsive: true,
     maintainAspectRatio: false,

@@ -10,8 +10,8 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import { useDarkMode } from "use-dark-mode-ts";
 import { IDay } from "../models";
-import { useDarkMode } from "../utilities/hooks/useDarkMode";
 
 ChartJS.register(
   CategoryScale,

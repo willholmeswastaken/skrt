@@ -2153,10 +2153,10 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
-use-dark-mode-hook@^1.2.6:
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/use-dark-mode-hook/-/use-dark-mode-hook-1.2.6.tgz#c2129e0a34e0a8bb133a8c9ea775f6f704454249"
-  integrity sha512-eno+ibQw/lXmF9zqF5myuhdDBZ1tKX9XP36Dj14Sj7E5LgdXMjLMkJdmbxDDBfEAwmGU8O/5La43FjlTGoXUuQ==
+use-dark-mode-ts@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/use-dark-mode-ts/-/use-dark-mode-ts-1.0.0.tgz#1014cc6a828b18e7418a32d85dc2b209f6644cd1"
+  integrity sha512-4t6L7DDn+1LcK0OhBQsV323/4pkOtxb0YWxuBgd0kF/G38Y7+SJz1qbrNeuaGWByuJMmDocUUQSQqeCIT/VVJQ==
 
 use-subscription@1.5.1:
   version "1.5.1"
@@ -2164,11 +2164,6 @@ use-subscription@1.5.1:
   integrity sha512-Xv2a1P/yReAjAbhylMfFplFKj9GssgTwN7RlcTxBujFQcloStWNDQdc4g4NRWH9xS4i/FDk04vQBptAXoF3VcA==
   dependencies:
     object-assign "^4.1.1"
-
-usehooks-ts@^2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/usehooks-ts/-/usehooks-ts-2.4.2.tgz#a9a5df9d04dcce993d7e8ec088965ba44dfcd9cc"
-  integrity sha512-YqD5HaloGpRSoNaXhAxR+CHTKda44mDtFqNJk5gRuy4qeHVxpp8ycN3LY0txYqNudCVuAk1f8m6M0ojQ5Aph8Q==
 
 util-deprecate@^1.0.2:
   version "1.0.2"
