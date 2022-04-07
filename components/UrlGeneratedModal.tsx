@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon, ClipboardIcon } from "@heroicons/react/outline";
 import { BadgeCheckIcon } from "@heroicons/react/solid";
+import CopyLink from "./CopyLink";
 
 interface IUrlGeneratedModalProps {
   link: string;
@@ -9,16 +10,9 @@ interface IUrlGeneratedModalProps {
 
 const UrlGeneratedModal: React.FC<IUrlGeneratedModalProps> = ({ link }) => {
   const [open, setOpen] = useState(true);
-  const [copied, setCopied] = useState(false);
-
-  const copyLink = () => {
-    navigator.clipboard.writeText(link);
-    setCopied(true);
-  };
 
   useEffect(() => {
     setOpen(true);
-    setCopied(false);
   }, [link]);
 
   const cancelButtonRef = useRef(null);
@@ -84,16 +78,7 @@ const UrlGeneratedModal: React.FC<IUrlGeneratedModalProps> = ({ link }) => {
                         >
                           {link}
                         </a>
-                        <div
-                          onClick={() => copyLink()}
-                          className="mt-[-3px] hover:cursor-pointer text-soft-dark-caption-text dark:text-soft-white-header"
-                        >
-                          {copied ? (
-                            <CheckIcon height={25} />
-                          ) : (
-                            <ClipboardIcon height={25} />
-                          )}
-                        </div>
+                        <CopyLink link={link} />
                       </div>
                     </div>
                   </div>

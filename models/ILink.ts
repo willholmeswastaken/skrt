@@ -10,4 +10,5 @@ export interface ILink {
   createdOn: string;
   createdById: string | null;
   deviceAnalytics: Array<IDeviceAnalytic>;
+  skrtUrl: string;
 }
