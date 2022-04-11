@@ -5,8 +5,8 @@ interface ICopyLinkProps {
   link: string;
 }
 
-const CopyLink: React.FC<ICopyLinkProps> = ({ link }) => {
-  const [copied, setCopied] = useState(false);
+const CopyLink = ({ link }: ICopyLinkProps) => {
+  const [copied, setCopied] = useState<boolean>(false);
 
   const copyLink = () => {
     navigator.clipboard.writeText(link);

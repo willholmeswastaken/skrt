@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { CheckIcon, ClipboardIcon } from "@heroicons/react/outline";
 import { BadgeCheckIcon } from "@heroicons/react/solid";
 import CopyLink from "./CopyLink";
 
@@ -8,8 +7,8 @@ interface IUrlGeneratedModalProps {
   link: string;
 }
 
-const UrlGeneratedModal: React.FC<IUrlGeneratedModalProps> = ({ link }) => {
-  const [open, setOpen] = useState(true);
+const UrlGeneratedModal = ({ link }: IUrlGeneratedModalProps) => {
+  const [open, setOpen] = useState<boolean>(true);
 
   useEffect(() => {
     setOpen(true);

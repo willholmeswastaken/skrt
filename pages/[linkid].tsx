@@ -6,8 +6,8 @@ export const getServerSideProps: GetServerSideProps = async ({
   params,
   req,
 }) => {
-  const linkId = params?.linkid;
-  let redirectUrl = process.env.HOME_URL;
+  const linkId: string = params?.linkid!.toString() ?? '';
+  let redirectUrl: string = process.env.HOME_URL!.toString();
   try {
     if (linkId) {
       const url = await prisma.link.findUnique({
@@ -15,10 +15,10 @@ export const getServerSideProps: GetServerSideProps = async ({
           linkId: linkId.toString(),
         },
       });
-      const ipAddress =
+      const ipAddress: string =
         req.socket.remoteAddress!.replace("::1", "").replace("127.0.0.1", "") ||
         "77.99.6.131";
-      const country = lookup(ipAddress)?.country;
+      const country: string = lookup(ipAddress)?.country ?? '';
       await prisma.link.update({
         where: { linkId: linkId.toString() },
         data: {

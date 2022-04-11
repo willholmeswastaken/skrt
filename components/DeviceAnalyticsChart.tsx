@@ -16,8 +16,8 @@ interface IDeviceAnalyticsChartProps {
   deviceAnalytics: Array<IDeviceAnalytic>;
 }
 
-const DeviceAnalyticsChart: React.FC<IDeviceAnalyticsChartProps> = ({ deviceAnalytics }) => {
-  const isDarkMode = useDarkMode();
+const DeviceAnalyticsChart = ({ deviceAnalytics }: IDeviceAnalyticsChartProps) => {
+  const isDarkMode: boolean = useDarkMode();
   const options = {
     responsive: true,
     maintainAspectRatio: false,

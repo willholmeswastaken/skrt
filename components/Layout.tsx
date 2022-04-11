@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./Header";
 
-const Layout: React.FC = ({ children }) => {
+const Layout = ({ children }: any) => {
   return (
     <div className="h-screen w-screen">
       <div className="container mx-auto">

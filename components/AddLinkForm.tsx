@@ -15,7 +15,7 @@ interface IAddLinkFormProps {
   setLink: any;
 }
 
-const AddLinkForm: React.FC<IAddLinkFormProps> = ({ setLink }) => {
+const AddLinkForm = ({ setLink }: IAddLinkFormProps) => {
   const {
     register,
     handleSubmit,

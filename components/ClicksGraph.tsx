@@ -27,8 +27,8 @@ interface IClicksGraphProps {
   days: Array<IDay>;
 }
 
-const ClicksGraph: React.FC<IClicksGraphProps> = ({ days }) => {
-  const isDarkMode = useDarkMode();
+const ClicksGraph = ({ days }: IClicksGraphProps) => {
+  const isDarkMode: boolean = useDarkMode();
   const options = {
     responsive: true,
     maintainAspectRatio: false,

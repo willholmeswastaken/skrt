@@ -5,7 +5,7 @@ interface IFormErrorProps {
     error: string;
 }
 
-const FormError: React.FC<IFormErrorProps> = ({ error }) => {
+const FormError = ({ error }: IFormErrorProps) => {
   return (
       <>
       {
