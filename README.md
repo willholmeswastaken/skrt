@@ -1,7 +1,12 @@
-# Skrt.to
+# Skrt.to (Pronounced skert)
+See [here](https://www.definder.net/SKRT/) for the definition of skrt.
+
+Always free, never paid.<br />
 Your friendly url shortening service.
 
-[Click to go to Skrt](https://skrt.vercel.app)
+I've seen a lot of url shortening services, but the majority charge you to view analytics like click rates. Request breakdowns etc. So I made my own, and it's going to be a lot better than those out there.
+
+[Click to go to Skrt](https://skrt.to)
 
 Todo:
 - ✅ Add visit counter tech 
@@ -11,13 +16,14 @@ Todo:
 - ✅ Add an unlisted boolean to a link
 - ✅ Store links with an optional userId
 - ✅ View click analytics for the last 7 days, including device breakdown and geographic as well as source of click.
-- ⬜️ Search for a skrt
 - ✅ Create social share buttons
+- ⬜️ Generate and share qr code for your skrt
+- ⬜️ Search for a skrt
+- ⬜️ Add open source promo and that we will never charge in the footer.
 - ⬜️ Log in with a social provider (nextauth)
 - ⬜️ View metrics on links when created whilst logged in
 - ⬜️ View my skrts dashboard
 - ⬜️ Filter the most recent links where they are not unlisted
-- ⬜️ Add open source promo and that we will never charge.
 - ⬜️ Last minute refactorings
 - ⬜️ Add cypress e2e test
 <hr />
