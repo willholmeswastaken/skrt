@@ -21,6 +21,7 @@ import {
   WhatsappShareButton,
 } from "react-share";
 import CopyLink from "../../components/CopyLink";
+import { QRCode } from "react-qrcode-logo";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const linkId = params?.linkid;
@@ -147,6 +148,7 @@ const Analytics: NextPage<IAnalyticsPageProps> = ({ link }) => {
               </div>
             </div>
           </div>
+          
           <div className="flex flex-col md:flex-row w-full gap-4">
             <div className="flex flex-col w-full md:w-1/2 h-full bg-white dark:bg-soft-dark-light rounded-lg shadow-sm">
               <div className="p-6">
@@ -156,6 +158,16 @@ const Analytics: NextPage<IAnalyticsPageProps> = ({ link }) => {
             <div className="flex flex-col h-full w-full md:w-1/2 bg-white dark:bg-soft-dark-light rounded-lg shadow-sm">
               <div className="p-6">
                 <DeviceAnalyticsChart deviceAnalytics={link.deviceAnalytics} />
+              </div>
+            </div>
+          </div>
+          <div className="flex w-full">
+            <div className="w-full bg-white dark:bg-soft-dark-light rounded-lg shadow-sm justify-center items-center">
+              <h2 className="text-soft-dark-caption-text dark:text-soft-white-header text-xl text-center font-semibold p-4">
+                Scan the QR code to your link
+              </h2>
+              <div className="flex items-center justify-center pt-2 pb-4">
+                <QRCode eyeRadius={10} qrStyle="dots" value={link.skrtUrl} />
               </div>
             </div>
           </div>
