@@ -53,7 +53,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         let totalVisits: Array<IVisit> = [];
         for (let i = 0; i < days.length; i++) {
           const day: IDay = days[i];
-          console.log(day);
           if (day.visits === undefined) continue;
           totalVisits = totalVisits.concat(day.visits);
         }

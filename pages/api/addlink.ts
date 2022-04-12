@@ -1,4 +1,3 @@
-import { link } from "fs";
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../db";
 import { isValidHttpUrl } from "../../utilities/urlhelper";

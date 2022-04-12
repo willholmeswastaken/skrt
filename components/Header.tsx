@@ -1,7 +1,9 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import SearchModal from "./SearchModal";
 
 const Header = () => {
+  const [showSearch, setShowSearch] = useState<boolean>(false);
   return (
     <div className="flex flex-grow w-full p-6">
       <Link href="/">
@@ -9,13 +11,13 @@ const Header = () => {
       </Link>
       <div>
         <div>
-          <a
-            href="#"
+          <button
+            type='button'
+            onClick={() => setShowSearch(true)}
             className="inline-block text-sm px-4 py-2 leading-none rounded text-soft-white-header bg-soft-dark-light mt-4 lg:mt-0"
-          >
-            Browse
-          </a>
+            >Search</button>
         </div>
+        <SearchModal open={showSearch} setOpen={setShowSearch} />
       </div>
     </div>
   );
