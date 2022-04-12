@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { prisma } from "../../db";
 
 const SearchLink = async (req: NextApiRequest, res: NextApiResponse) => {
     const linkId: string = req?.query['linkId'].toString() ?? '';
