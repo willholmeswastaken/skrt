@@ -15,7 +15,7 @@ const AddLink = async (req: NextApiRequest, res: NextApiResponse<IAddLinkRespons
     const linkId = Math.random().toString(36).substring(2, 8);
     await prisma.link.create({
       data: {
-        url: url,
+        url: url.toLowerCase(),
         linkId: linkId,
         visitCount: 0
       },
