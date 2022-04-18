@@ -9,6 +9,7 @@ interface IUrlGeneratedModalProps {
 
 const UrlGeneratedModal = ({ link }: IUrlGeneratedModalProps) => {
   const [open, setOpen] = useState<boolean>(true);
+  const dismiss: () => void = () => setOpen(false);
 
   useEffect(() => {
     setOpen(true);
@@ -87,7 +88,7 @@ const UrlGeneratedModal = ({ link }: IUrlGeneratedModalProps) => {
                 <button
                   type="button"
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-24 py-2 bg-skrt-blue hover:bg-skrt-blue-light text-base font-medium text-white focus:outline-none sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={() => setOpen(false)}
+                  onClick={dismiss}
                 >
                   Thanks!
                 </button>

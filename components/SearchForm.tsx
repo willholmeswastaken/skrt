@@ -39,6 +39,7 @@ const SearchForm = ({ onDismiss }: ISearchFormProps) => {
         break;
     }
     setIsLoading(false);
+    reset();
   };
 
   return (

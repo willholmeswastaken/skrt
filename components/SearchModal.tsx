@@ -10,6 +10,7 @@ interface ISearchModalProps {
 
 const SearchModal = ({ open, setOpen}: ISearchModalProps) => {
   const cancelButtonRef = useRef(null);
+  const dismiss: () => void = () => setOpen(false);
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -66,7 +67,7 @@ const SearchModal = ({ open, setOpen}: ISearchModalProps) => {
                     </Dialog.Title>
                   </div>
                   <div className="w-full">
-                    <SearchForm onDismiss={() => setOpen(false)} />
+                    <SearchForm onDismiss={dismiss} />
                   </div>
                 </div>
               </div>

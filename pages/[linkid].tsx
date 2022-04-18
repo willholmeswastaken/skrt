@@ -6,7 +6,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   params,
   req,
 }) => {
-  const linkId: string = params?.linkid!.toString() ?? '';
+  const linkId: string = params?.linkid!.toString() ?? "";
   let redirectUrl: string = process.env.HOME_URL!.toString();
   try {
     if (linkId) {
@@ -18,7 +18,10 @@ export const getServerSideProps: GetServerSideProps = async ({
       const ipAddress: string =
         req.socket.remoteAddress!.replace("::1", "").replace("127.0.0.1", "") ||
         "77.99.6.131";
-      const country: string = lookup(ipAddress)?.country ?? '';
+      console.log(`Generating country lookup for ${linkId} at ${new Date().toLocaleTimeString()}`);
+      const country: string = lookup(ipAddress)?.country ?? "";
+      console.log(`Generating visit for ${linkId} at ${new Date().toLocaleTimeString()}`);
+      console.timeStamp();
       await prisma.link.update({
         where: { linkId: linkId.toString() },
         data: {
@@ -32,11 +35,13 @@ export const getServerSideProps: GetServerSideProps = async ({
           },
         },
       });
+      console.log(`Generated visit for ${linkId} at ${new Date().toLocaleTimeString()}`);
       redirectUrl = url?.url ?? redirectUrl;
     }
   } catch (err) {
     console.log(err);
   }
+  console.log(`Returning at ${new Date().toLocaleTimeString()}`);
   return {
     redirect: {
       destination: redirectUrl,

@@ -4,6 +4,7 @@ import SearchModal from "./SearchModal";
 
 const Header = () => {
   const [showSearch, setShowSearch] = useState<boolean>(false);
+  const presentSearch: () => void = () => setShowSearch(true);
   return (
     <div className="flex flex-grow w-full p-6">
       <Link href="/">
@@ -13,7 +14,7 @@ const Header = () => {
         <div>
           <button
             type='button'
-            onClick={() => setShowSearch(true)}
+            onClick={presentSearch}
             className="inline-block text-sm px-4 py-2 leading-none rounded text-soft-white-header bg-soft-dark-light mt-4 lg:mt-0"
             >Search</button>
         </div>
