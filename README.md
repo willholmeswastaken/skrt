@@ -17,17 +17,15 @@ Todo:
 - ✅ Store links with an optional userId
 - ✅ View click analytics for the last 7 days, including device breakdown and geographic as well as source of click.
 - ✅ Create social share buttons
-- ⬜️ Generate and share qr code for your skrt
-- ⬜️ Search for a skrt
-- ⬜️ Add open source promo and that we will never charge in the footer.
-- ⬜️ Log in with a social provider (nextauth)
-- ⬜️ View metrics on links when created whilst logged in
-- ⬜️ View my skrts dashboard
-- ⬜️ Filter the most recent links where they are not unlisted
-- ⬜️ Last minute refactorings
-- ⬜️ Add cypress e2e test
+- ✅ Generate and share qr code for your skrt
+- ✅ Search for a skrt
+- ✅ View metrics on links via search to analytics
+- ✅ Add open source promo and that we will never charge in the footer.
 <hr />
 
-After initial release:
+After initial release (I will do these at some point once the motivation for this side project comes back to me):
+- ⬜️ Log in with a social provider (nextauth)
+- ⬜️ View my skrts dashboard
+- ⬜️ Filter the most recent links where they are not unlisted
 - ⬜️ Change the homepage to have most recent links displayed and a cta at the top to create a new one.
 - ⬜️ Filter the most recent links where they are not unlisted.
